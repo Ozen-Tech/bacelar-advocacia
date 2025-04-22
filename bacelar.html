@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bacelar Advocacia e Consultoria</title>
+  <meta name="description" content="Excelência jurídica para empresas modernas. Consultoria empresarial, ética e resultados.">
+  <meta name="keywords" content="advocacia, consultoria, empresarial, direito, Bacelar, jurídico, Maranhão, São Luís">
+  <meta name="author" content="Bacelar Advocacia e Consultoria">
+  <link rel="icon" type="image/png" href="imgs/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    :root {
+      --gold: #bfa046;
+      --gold-light: #e6d3a3;
+      --black: #181818;
+      --black-light: #232323;
+      --glass-bg: rgba(24,24,24,0.82);
+      --glass-border: rgba(191,160,70,0.25);
+      --shadow-gold: 0 4px 32px #bfa04633;
+      --font-title: 'Playfair Display', serif;
+      --font-body: 'Inter', Arial, sans-serif;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-body);
+      background: var(--black);
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    body { min-height: 100vh; background: var(--black); }
+    a:focus, button:focus, input:focus, textarea:focus {
+      outline: 2px solid var(--gold) !important;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px #bfa04633;
+    }
+    /* NAVBAR */
+    .navbar {
+      background: transparent;
+      box-shadow: none;
+      border-bottom: none;
+      transition: background 0.4s, box-shadow 0.4s, border-bottom 0.4s;
+      z-index: 100;
+      font-family: var(--font-body);
+    }
+    .navbar .navbar-brand img { height: 44px; filter: drop-shadow(0 2px 8px #bfa04644); }
+    .navbar .nav-link {
+      color: #fff !important;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+      position: relative;
+      font-size: 1.08rem;
+    }
+    .navbar .nav-link.active, .navbar .nav-link:hover { color: var(--gold) !important; }
+    .navbar .nav-link:focus {
+      color: var(--gold) !important;
+      background: #fff1;
+      border-radius: 4px;
+    }
+    .navbar.hero-navbar {
+      background: transparent;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: none;
+    }
+    .navbar.scrolled {
+      background: var(--black) !important;
+      box-shadow: 0 2px 8px #0002;
+      border-bottom: 2px solid var(--gold);
+    }
+    /* HERO */
+    .hero-section {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+      height: 100vh;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 1;
+      background: var(--black);
+    }
+    .hero-carousel {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 1;
+    }
+    .hero-carousel .swiper-slide {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-carousel .swiper-slide video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      filter: brightness(0.55) blur(0.5px) saturate(1.1);
+      transition: filter 0.3s;
+      z-index: 1;
+    }
+    .hero-carousel .swiper-slide::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 60% 40%, rgba(191,160,70,0.22) 0%, rgba(191,160,70,0.10) 60%, transparent 100%);
+      box-shadow: 0 0 120px 40px #bfa04655 inset;
+      z-index: 2;
+      animation: goldGlow 6s ease-in-out infinite alternate;
+    }
+    @keyframes goldGlow {
+      0% { box-shadow: 0 0 120px 40px #bfa04644 inset; }
+      100% { box-shadow: 0 0 180px 80px #e6d3a3aa inset; }
+    }
+    .hero-particles {
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 3;
+      overflow: hidden;
+    }
+    .hero-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fffbe6 0%, #bfa046 80%, transparent 100%);
+      opacity: 0.18;
+      animation: floatParticle 8s linear infinite;
+    }
+    @keyframes floatParticle {
+      0% { transform: translateY(0) scale(1);}
+      100% { transform: translateY(-60vh) scale(1.2);}
+    }
+    .hero-overlay-content {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      pointer-events: none;
+    }
+    .hero-overlay-content .logo-hero {
+      width: 120px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 2px 16px #bfa04688);
+      pointer-events: auto;
+    }
+    .hero-overlay-content h1 {
+      color: #fff;
+      font-family: var(--font-title);
+      font-size: 2.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px #0008;
+      margin-bottom: 1.2rem;
+      pointer-events: auto;
+      position: relative;
+      display: inline-block;
+    }
+    .hero-overlay-content h1::after {
+      content: "";
+      display: block;
+      margin: 0.5rem auto 0 auto;
+      width: 80px;
+      height: 4px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      animation: underlineGold 2.5s infinite alternate;
+    }
+    @keyframes underlineGold {
+      0% { width: 60px; opacity: 0.7;}
+      100% { width: 120px; opacity: 1;}
+    }
+    .hero-overlay-content .btn {
+      pointer-events: auto;
+      font-size: 1.15rem;
+      font-weight: 600;
+      border: none;
+      background: linear-gradient(90deg, var(--gold) 60%, var(--gold-light) 100%);
+      color: #181818;
+      box-shadow: 0 2px 16px #bfa04633;
+      border-radius: 2rem;
+      padding: 0.8rem 2.5rem;
+      margin-top: 1.2rem;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s, color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-overlay-content .btn:hover, .hero-overlay-content .btn:focus {
+      background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 100%);
+      color: #fff;
+      box-shadow: 0 4px 32px #bfa04655;
+      transform: translateY(-2px) scale(1.04);
+    }
+    @media (max-width: 992px) {
+      .hero-overlay-content h1 { font-size: 2rem; }
+      .hero-overlay-content .logo-hero { width: 80px; }
+    }
+    @media (max-width: 576px) {
+      .hero-overlay-content h1 { font-size: 1.2rem; }
+      .hero-overlay-content .logo-hero { width: 56px; }
+    }
+    /* SECTIONS */
+    .section-spacing {
+      padding: 4.5rem 0 3.5rem 0;
+      background: var(--black);
+    }
+    .bg-light {
+      background: var(--black-light) !important;
+    }
+    /* GLASSMORPHISM CARDS */
+    .card {
+      border: 1.5px solid var(--glass-border);
+      border-radius: 1.2rem;
+      background: var(--glass-bg);
+      box-shadow: var(--shadow-gold);
+      backdrop-filter: blur(8px) saturate(1.2);
+      transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
+      animation: fadeInUp 1s;
+      color: #fff;
+      min-height: 320px;
+      max-width: 370px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1.5rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .card:hover {
+      box-shadow: 0 8px 32px #bfa04655;
+      border: 1.5px solid var(--gold);
+      transform: translateY(-4px) scale(1.025);
+    }
+    .icon-circle {
+      background: #181818;
+      color: var(--gold);
+      border-radius: 50%;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px #bfa04622;
+      transition: box-shadow 0.2s, background 0.2s, color 0.2s, transform 0.2s;
+      border: 2px solid var(--gold);
+    }
+    .icon-circle:hover, .icon-circle:focus {
+      background: var(--gold);
+      color: #181818;
+      box-shadow: 0 0 16px #bfa04688;
+      transform: scale(1.1) rotate(-6deg);
+    }
+    .swiper-pagination-bullet-active { background: var(--gold) !important; }
+    /* TÍTULOS */
+    .section-title {
+      color: var(--gold);
+      font-family: var(--font-title);
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      letter-spacing: 1px;
+      font-size: 2.2rem;
+      position: relative;
+      display: inline-block;
+      text-shadow: 0 2px 8px #0008;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      margin: 0.5rem auto 0 auto;
+      width: 60px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      animation: underlineGold 2.5s infinite alternate;
+    }
+    .gold { color: var(--gold); }
+    /* NEWSLETTER */
+    .newsletter-section {
+      background: linear-gradient(90deg, #181818 60%, #232323 100%);
+      border-top: 6px solid #bfa04644;
+      padding: 3rem 0 2rem 0;
+      box-shadow: 0 -2px 32px #bfa04622;
+      color: #fff;
+    }
+    .newsletter-form input[type="email"] {
+      border-radius: 2rem 0 0 2rem;
+      border: 1.5px solid var(--gold);
+      padding: 0.75rem 1.2rem;
+      font-size: 1.1rem;
+      width: 70%;
+      max-width: 320px;
+      display: inline-block;
+      background: rgba(24,24,24,0.7);
+      color: #fff;
+      box-shadow: 0 2px 8px #bfa04622;
+      transition: border 0.2s;
+    }
+    .newsletter-form input[type="email"]::placeholder { color: #bfa046cc; }
+    .newsletter-form button {
+      border-radius: 0 2rem 2rem 0;
+      background: linear-gradient(90deg, var(--gold) 60%, var(--gold-light) 100%);
+      color: #181818;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 8px #bfa04622;
+    }
+    .newsletter-form button:hover { background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 100%); color: #fff; }
+    /* FOOTER */
+    .footer {
+      background: var(--black);
+      color: #fff;
+      padding: 2rem 0;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+      border-top: 2px solid var(--gold);
+    }
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -40px; left: 0; width: 100%; height: 80px;
+      background: radial-gradient(ellipse at 50% 0, var(--gold-light) 0%, transparent 100%);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: color 0.2s, text-shadow 0.2s;
+      position: relative;
+      z-index: 2;
+    }
+    .footer a:hover, .footer a:focus {
+      text-decoration: underline;
+      color: #fff;
+      text-shadow: 0 0 8px var(--gold-light);
+    }
+    .footer .fa-lg {
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    .footer a:hover .fa-lg, .footer a:focus .fa-lg {
+      color: var(--gold-light);
+      text-shadow: 0 0 12px var(--gold);
+    }
+    /* MAPA */
+    #map {
+      width: 100%;
+      height: 220px;
+      border-radius: 1rem;
+      margin-top: 1rem;
+      min-height: 220px;
+      box-shadow: 0 2px 16px #bfa04622;
+      border: 1.5px solid var(--gold);
+    }
+    /* FORMULÁRIOS */
+    .form-control, textarea.form-control {
+      background: #232323;
+      color: #fff;
+      border: 1.5px solid var(--gold);
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      transition: border 0.2s, background 0.2s;
+    }
+    .form-control:focus, textarea.form-control:focus {
+      background: #181818;
+      border-color: var(--gold-light);
+      color: #fff;
+    }
+    .form-label { color: var(--gold-light); }
+    .btn-warning {
+      background: linear-gradient(90deg, var(--gold) 60%, var(--gold-light) 100%);
+      color: #181818;
+      border: none;
+      font-weight: 600;
+      border-radius: 2rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-warning:hover, .btn-warning:focus {
+      background: linear-gradient(90deg, var(--gold-light) 0%, var(--gold) 100%);
+      color: #fff;
+    }
+    .btn-outline-warning {
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      border-radius: 2rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-warning:hover, .btn-outline-warning:focus {
+      background: var(--gold);
+      color: #181818;
+    }
+    /* MODAL */
+    .modal-content {
+      background: var(--glass-bg);
+      color: #fff;
+      border: 1.5px solid var(--gold);
+      border-radius: 1.2rem;
+      box-shadow: 0 8px 32px #bfa04655;
+    }
+    .modal-header {
+      border-bottom: 1px solid var(--gold);
+    }
+    .modal-title { color: var(--gold); }
+    /* RESPONSIVO */
+    @media (max-width: 992px) {
+      .section-title { font-size: 1.5rem; }
+      .container { padding-left: 1rem; padding-right: 1rem; }
+      .section-spacing { padding: 3rem 0 2rem 0; }
+    }
+    @media (max-width: 768px) {
+      .container { padding-left: 0.5rem; padding-right: 0.5rem; }
+      .card { padding: 1.2rem 0.7rem; }
+      .row.g-4 > [class^="col-"] { margin-bottom: 1.5rem; }
+      .hero-section { height: 90vh; }
+      .hero-overlay-content h1 { font-size: 1.8rem; padding: 0 1rem; }
+      .equipe-card img { width: 120px; height: 120px; }
+      .equipe-card.presidente img { width: 140px; height: 140px; }
+    }
+    @media (max-width: 576px) {
+      .footer { font-size: 0.95rem; }
+      .section-title { font-size: 1.1rem; }
+      .card { padding: 1rem 0.5rem; }
+      .newsletter-section { padding: 2rem 0 1rem 0; }
+      .hero-overlay-content h1 { font-size: 1.4rem; }
+      .section-spacing { padding: 3rem 0; }
+      .card { margin: 0 0.5rem; }
+    }
+    /* Equipe carrossel custom */
+    .equipe-carousel { padding: 2rem 0; }
+    .equipe-card {
+      background: var(--glass-bg);
+      border: 2px solid var(--gold);
+      border-radius: 1.2rem;
+      transition: all 0.3s ease;
+      height: 100%;
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 2rem 1.2rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .equipe-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(191, 160, 70, 0.3);
+    }
+    .equipe-card img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      margin: 0 auto 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .equipe-card.presidente {
+      background: linear-gradient(145deg, var(--black) 0%, var(--black-light) 100%);
+      border: 3px solid var(--gold);
+    }
+    .equipe-card.presidente img {
+      width: 180px;
+      height: 180px;
+      border-width: 4px;
+    }
+    .equipe-card.presidente .cargo {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 1.1em;
+    }
+    /* Estilos para o vídeo do hero */
+    .hero-video-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .yt-bg {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 177.78vh; /* 100vh * 16/9 */
+      height: 100vh;
+      min-width: 100vw;
+      min-height: 56.25vw; /* 100vw * 9/16 */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      object-fit: cover;
+      border: none;
+      background: #000;
+    }
+    @media (max-width: 768px) {
+      .yt-bg {
+        width: 100vw;
+        height: 177.78vw; /* 100vw * 16/9 */
+        min-width: 56.25vh; /* 100vh * 9/16 */
+        min-height: 100vh;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg py-3 fixed-top hero-navbar" role="navigation">
+      <div class="container">
+        <a class="navbar-brand" href="#"><img src="imgs/logo_bacelar.png" alt="Bacelar ADV"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Abrir menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
+            <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Nós</a></li>
+            <li class="nav-item"><a class="nav-link" href="#areas">Áreas de Atuação</a></li>
+            <li class="nav-item"><a class="nav-link" href="#noticias">Notícias</a></li>
+            <li class="nav-item"><a class="nav-link" href="#equipe">Equipe</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO FULLSCREEN CAROUSEL COM VÍDEO DO INSTAGRAM -->
+    <section class="hero-section" id="inicio">
+      <div class="hero-carousel">
+        <div class="hero-video-bg">
+          <iframe
+            src="https://www.youtube.com/embed/rDeKDxojlcM?autoplay=1&mute=1&controls=0&loop=1&playlist=rDeKDxojlcM&modestbranding=1&showinfo=0&rel=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+            title="Vídeo Bacelar"
+            class="yt-bg"
+            tabindex="-1"
+          ></iframe>
+        </div>
+      </div>
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="hero-overlay-content text-center">
+        <img src="imgs/logo_bacelar.png" alt="Bacelar Advocacia" class="logo-hero mb-3" />
+        <h1>Excelência em Direito Empresarial<br>para Empresas Modernas</h1>
+        <a href="#contato" class="btn btn-lg px-5 py-2 mt-2">Fale com a Equipe</a>
+      </div>
+    </section>
+      <!-- Partículas douradas animadas -->
+      <div class="hero-particles" id="heroParticles"></div>
+      <div class="hero-overlay-content text-center">
+        <img src="imgs/logo_bacelar.png" alt="Bacelar Advocacia" class="logo-hero mb-3" />
+        <h1>Excelência em Direito Empresarial<br>para Empresas Modernas</h1>
+        <a href="#contato" class="btn btn-lg px-5 py-2 mt-2">Fale com a Equipe</a>
+      </div>
+    </section>
+
+    <!-- SOBRE NÓS -->
+    <section id="sobre" class="section-spacing">
+      <div class="container" data-aos="fade-up">
+        <div class="row align-items-center h-100" style="min-height: 320px;">
+          <div class="col-md-5 mb-4 mb-md-0 text-center h-100 d-flex align-items-stretch">
+            <img src="imgs/imagem_do_time.jpg" alt="Foto da equipe Bacelar Advocacia" class="img-fluid rounded shadow w-100 h-100" style="object-fit: cover; min-height: 320px;" loading="lazy">
+          </div>
+          <div class="col-md-7 h-100 d-flex align-items-center">
+            <div>
+              <h2 class="section-title" data-aos="fade-right">Sobre a Bacelar Advocacia e Consultoria</h2>
+              <p>
+                Sediada em São Luís, a <strong>Bacelar Advocacia e Consultoria</strong> é referência em Direito Empresarial, atuando há quase 15 anos na defesa dos interesses de empresas de todos os portes. Nossa missão é oferecer soluções jurídicas inovadoras, seguras e personalizadas, sempre com ética, excelência técnica e proximidade com o cliente.
+              </p>
+              <p>
+                Nossa equipe multidisciplinar é formada por especialistas em Direito Empresarial, Direito do Trabalho Empresarial e Direito Previdenciário Empresarial, preparados para atender demandas complexas e estratégicas do mundo corporativo. Atendemos empresas locais e nacionais, com foco em resultados e na construção de relações sólidas e duradouras.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREAS DE ATUAÇÃO -->
+    <section id="areas" class="section-spacing bg-light">
+      <div class="container" data-aos="fade-up">
+        <h2 class="section-title text-center" data-aos="fade-up">Áreas de Atuação</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card p-4 text-center h-100" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon-circle mx-auto" tabindex="0"><i class="fas fa-briefcase"></i></div>
+              <h5 class="mb-2">Direito Empresarial</h5>
+              <p class="mb-0">
+                Consultoria estratégica, contratos, reestruturação societária e proteção patrimonial para empresas. Atuação destacada em todo o Maranhão.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-4 text-center h-100" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon-circle mx-auto" tabindex="0"><i class="fas fa-balance-scale"></i></div>
+              <h5 class="mb-2">Direito do Trabalho Empresarial</h5>
+              <p class="mb-0">
+                Defesa em processos trabalhistas empresariais, compliance, auditorias e gestão de riscos para empregadores e empresas.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card p-4 text-center h-100" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon-circle mx-auto" tabindex="0"><i class="fas fa-user-shield"></i></div>
+              <h5 class="mb-2">Direito Previdenciário Empresarial</h5>
+              <p class="mb-0">
+                Planejamento e defesa em questões previdenciárias empresariais e de executivos, com foco em empresas e CNPJs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTÍCIAS JURÍDICAS -->
+    <section id="noticias" class="section-spacing">
+      <div class="container" data-aos="fade-up">
+        <h2 class="section-title text-center" data-aos="fade-up">Notícias Recentes para Empresas</h2>
+        <div class="swiper mySwiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="card p-4 h-100">
+                <img src="imgs/noticias/noticia1.png" alt="Notícia 1" class="img-fluid rounded mb-3">
+                <h6 class="gold mb-2">Reforma Tributária</h6>
+                <h5 class="mb-2">Impactos da Reforma Tributária para CNPJs</h5>
+                <p class="mb-0">Entenda como as mudanças na legislação tributária podem afetar a gestão fiscal e o planejamento das empresas brasileiras.</p>
+                <span class="text-muted small">20/04/2025</span>
+                <button class="btn btn-warning btn-sm mt-3">Leia mais</button>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card p-4 h-100">
+                <img src="imgs/noticias/noticia2.png" alt="Notícia 2" class="img-fluid rounded mb-3">
+                <h6 class="gold mb-2">LGPD Empresarial</h6>
+                <h5 class="mb-2">Novas exigências de proteção de dados para empresas</h5>
+                <p class="mb-0">Saiba como adequar sua empresa à Lei Geral de Proteção de Dados e evitar sanções administrativas.</p>
+                <span class="text-muted small">15/04/2025</span>
+                <button class="btn btn-warning btn-sm mt-3">Leia mais</button>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="card p-4 h-100">
+                <img src="imgs/noticias/noticia3.png" alt="Notícia 3" class="img-fluid rounded mb-3">
+                <h6 class="gold mb-2">Compliance</h6>
+                <h5 class="mb-2">Tendências em compliance para CNPJs</h5>
+                <p class="mb-0">Descubra as melhores práticas de compliance e governança corporativa para empresas em 2025.</p>
+                <span class="text-muted small">10/04/2025</span>
+                <button class="btn btn-warning btn-sm mt-3">Leia mais</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EQUIPE - CARROSSEL -->
+    <section id="equipe" class="section-spacing bg-light">
+      <div class="container" data-aos="fade-up">
+        <h2 class="section-title text-center" data-aos="fade-up">Equipe Especializada em Direito Empresarial</h2>
+        <div class="equipe-carousel swiper equipeSwiper">
+          <div class="swiper-wrapper">
+            <!-- Presidente -->
+            <div class="swiper-slide">
+              <div class="equipe-card presidente text-center"
+                data-nome="Dr. Antônio Bacelar"
+                data-cargo="Presidente"
+                data-bio="Advogado especialista com mais de 15 anos de experiência em Direito Empresarial. Presidente da Bacelar Advocacia e referência em consultoria jurídica empresarial no Maranhão."
+                data-img="imgs/antonio.jpg">
+                <img src="imgs/antonio.jpg" class="rounded-circle" alt="Dr. Antônio Bacelar">
+                <h5 class="mb-2">Dr. Antônio Bacelar</h5>
+                <span class="cargo">Presidente</span>
+                <p class="mt-2 mb-3">Especialista em Direito Empresarial</p>
+                <button class="btn btn-outline-warning btn-sm" onclick="showEquipeModal(this)">Saiba mais</button>
+              </div>
+            </div>
+            <!-- Membro 2 -->
+            <div class="swiper-slide">
+              <div class="equipe-card text-center"
+                data-nome="Dra. Maria Silva"
+                data-cargo="Advogada Associada"
+                data-bio="Atuação em Direito Empresarial e Contratual, com foco em soluções inovadoras para empresas."
+                data-img="imgs/maria.jpg">
+                <img src="imgs/maria.jpg" class="rounded-circle" alt="Dra. Maria Silva">
+                <h5 class="mb-2">Dra. Maria Silva</h5>
+                <span class="cargo">Advogada Associada</span>
+                <button class="btn btn-outline-warning btn-sm mt-3" onclick="showEquipeModal(this)">Saiba mais</button>
+              </div>
+            </div>
+            <!-- Membro 3 -->
+            <div class="swiper-slide">
+              <div class="equipe-card text-center"
+                data-nome="Dr. João Souza"
+                data-cargo="Advogado Associado"
+                data-bio="Especialista em Direito Previdenciário e Trabalhista, com experiência em demandas empresariais estratégicas."
+                data-img="imgs/joao.jpg">
+                <img src="imgs/joao.jpg" class="rounded-circle" alt="Dr. João Souza">
+                <h5 class="mb-2">Dr. João Souza</h5>
+                <span class="cargo">Advogado Associado</span>
+                <button class="btn btn-outline-warning btn-sm mt-3" onclick="showEquipeModal(this)">Saiba mais</button>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+        <!-- Equipe Modal -->
+        <div class="modal fade" id="equipeModal" tabindex="-1" aria-labelledby="equipeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="equipeModalLabel"></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                      <img id="equipeModalImg" src="" class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;" alt="Foto do membro da equipe">
+                      <p class="modal-cargo text-muted mb-2"></p>
+                      <p class="modal-bio"></p>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contato" class="section-spacing">
+      <div class="container" data-aos="fade-up">
+        <h2 class="section-title text-center" data-aos="fade-up">Fale Conosco</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <form id="contatoForm" novalidate>
+              <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="Seu nome" required minlength="2">
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+              </div>
+              <div class="mb-3">
+                <label for="mensagem" class="form-label">Mensagem</label>
+                <textarea class="form-control" id="mensagem" rows="4" placeholder="Como podemos ajudar em Direito Empresarial?" required minlength="5"></textarea>
+              </div>
+              <button type="submit" class="btn btn-warning text-white px-4">Enviar</button>
+              <div class="form-success" id="formSuccess">Mensagem enviada com sucesso!</div>
+              <div class="form-error" id="formError">Por favor, preencha todos os campos corretamente.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLÍTICA E MAPA INTERATIVO -->
+    <section class="section-spacing bg-light" id="politica">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <h2 class="section-title" style="font-size:1.3rem;">Política de Privacidade</h2>
+            <p style="font-size:1rem;">Seus dados são tratados com total confidencialidade e segurança, conforme a LGPD. <a href="#">Leia nossa política completa</a>.</p>
+            <p class="mt-3 mb-0">
+              <i class="fas fa-map-marker-alt gold"></i> Endereço: Av. Grande Oriente, 28 - Quadra 70 - Renascença, São Luís - MA, 65075-180
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h2 class="section-title" style="font-size:1.3rem;">Onde estamos</h2>
+            <div id="map"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- NEWSLETTER NO RODAPÉ -->
+  <section class="newsletter-section">
+    <div class="container text-center">
+      <h2 class="section-title mb-3" style="font-size:1.5rem;">Receba novidades e conteúdos jurídicos para empresas</h2>
+      <form class="newsletter-form d-flex justify-content-center align-items-center flex-wrap" id="newsletterForm" autocomplete="off">
+        <input type="email" class="form-control me-2" id="newsletterEmail" placeholder="Seu e-mail" required>
+        <button type="submit">Assinar</button>
+      </form>
+      <div id="newsletterMsg" class="mt-3" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 mb-3 mb-md-0">
+          <strong>Bacelar Advocacia e Consultoria</strong><br>
+          Especialistas em Direito Empresarial<br>
+          Av. Grande Oriente, 28 - Quadra 70 - Renascença, São Luís - MA, 65075-180<br>
+          Atuação nacional
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0 text-center">
+          <a href="#" class="me-3" aria-label="LinkedIn"><i class="fab fa-linkedin fa-lg"></i></a>
+          <a href="#" class="me-3" aria-label="Instagram"><i class="fab fa-instagram fa-lg"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook fa-lg"></i></a>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <a href="mailto:contato@bacelar.adv.br">contato@bacelar.adv.br</a><br>
+          <span>(98) 99999-9999</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Navbar aparece só após scrollar o hero
+    document.addEventListener('DOMContentLoaded', function() {
+      const navbar = document.querySelector('.navbar');
+      const hero = document.querySelector('.hero-section');
+      function onScroll() {
+        const heroBottom = hero.getBoundingClientRect().bottom;
+        if (heroBottom <= 60) {
+          navbar.classList.add('scrolled');
+          navbar.classList.remove('hero-navbar');
+        } else {
+          navbar.classList.remove('scrolled');
+          navbar.classList.add('hero-navbar');
+        }
+      }
+      window.addEventListener('scroll', onScroll);
+      onScroll();
+    });
+
+    // Scroll suave para âncoras
+    document.querySelectorAll('a.nav-link[href^=\"#\"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({
+            top: target.offsetTop - 60,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Swiper e AOS
+    AOS.init({ once: true, duration: 700, offset: 80 });
+    var swiper = new Swiper('.mySwiper', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: '.swiper-pagination', clickable: true },
+      breakpoints: { 768: { slidesPerView: 2 }, 1200: { slidesPerView: 3 } }
+    });
+    // Swiper do hero
+    var heroSwiper = new Swiper('.myHeroSwiper', {
+      slidesPerView: 1,
+      loop: true,
+      autoplay: { delay: 4000, disableOnInteraction: false },
+      pagination: { el: '.hero-carousel .swiper-pagination', clickable: true }
+    });
+
+    // Swiper Equipe
+    var equipeSwiper = new Swiper('.equipeSwiper', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      loop: true,
+      autoplay: { delay: 3500, disableOnInteraction: false },
+      pagination: { el: '.equipeSwiper .swiper-pagination', clickable: true },
+      breakpoints: {
+        576: { slidesPerView: 2 },
+        992: { slidesPerView: 3 }
+      }
+    });
+
+    // Modal Equipe
+    function showEquipeModal(btn) {
+      var card = btn.closest('.equipe-card');
+      var nome = card.getAttribute('data-nome');
+      var cargo = card.getAttribute('data-cargo');
+      var bio = card.getAttribute('data-bio');
+      var img = card.getAttribute('data-img');
+      document.getElementById('equipeModalLabel').textContent = nome;
+      document.querySelector('#equipeModal .modal-cargo').textContent = cargo;
+      document.querySelector('#equipeModal .modal-bio').textContent = bio;
+      document.getElementById('equipeModalImg').src = img;
+      var modalElement = document.getElementById('equipeModal');
+      var equipeModalInstance = new bootstrap.Modal(modalElement, { keyboard: true, backdrop: true });
+      modalElement.querySelector('.btn-close').addEventListener('click', function() { equipeModalInstance.hide(); });
+      modalElement.addEventListener('click', function(e) { if (e.target === modalElement) { equipeModalInstance.hide(); } });
+      equipeModalInstance.show();
+    }
+
+    // Validação e feedback do formulário de contato
+    document.getElementById('contatoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var nome = document.getElementById('nome');
+      var email = document.getElementById('email');
+      var mensagem = document.getElementById('mensagem');
+      var success = document.getElementById('formSuccess');
+      var error = document.getElementById('formError');
+      var valid = true;
+      if (nome.value.trim().length < 2) valid = false;
+      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.value.trim())) valid = false;
+      if (mensagem.value.trim().length < 5) valid = false;
+      if (valid) {
+        success.style.display = 'block';
+        error.style.display = 'none';
+        this.reset();
+        setTimeout(() => { success.style.display = 'none'; }, 4000);
+      } else {
+        error.style.display = 'block';
+        success.style.display = 'none';
+      }
+    });
+
+    // Newsletter
+    document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var email = document.getElementById('newsletterEmail');
+      var msg = document.getElementById('newsletterMsg');
+      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email.value.trim())) {
+        msg.style.display = 'block';
+        msg.style.color = '#dc3545';
+        msg.textContent = 'Por favor, insira um e-mail válido.';
+        return;
+      }
+      msg.style.display = 'block';
+      msg.style.color = '#198754';
+      msg.textContent = 'Obrigado por se inscrever! Em breve você receberá novidades.';
+      email.value = '';
+      setTimeout(() => { msg.style.display = 'none'; }, 4000);
+    });
+
+    // Mapa interativo Leaflet
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('map')) {
+        var map = L.map('map').setView([-2.529, -44.297], 17);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        L.marker([-2.529, -44.297]).addTo(map)
+          .bindPopup('Bacelar Advocacia e Consultoria<br>Av. Grande Oriente, 28 - Renascença, São Luís - MA')
+          .openPopup();
+      }
+    });
+
+    // Partículas douradas animadas no hero
+    function createParticles() {
+      const container = document.getElementById('heroParticles');
+      if (!container) return;
+      const w = window.innerWidth, h = window.innerHeight;
+      container.innerHTML = '';
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'hero-particle';
+        const size = Math.random() * 18 + 8;
+        p.style.width = p.style.height = size + 'px';
+        p.style.left = (Math.random() * 100) + 'vw';
+        p.style.top = (Math.random() * 80 + 10) + 'vh';
+        p.style.opacity = (Math.random() * 0.18 + 0.08).toFixed(2);
+        p.style.animationDuration = (6 + Math.random() * 6) + 's';
+        p.style.animationDelay = (-Math.random() * 8) + 's';
+        container.appendChild(p);
+      }
+    }
+    window.addEventListener('resize', createParticles);
+    document.addEventListener('DOMContentLoaded', createParticles);
+  </script>
+</body>
+</html>
